@@ -43,7 +43,8 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
     ```
     Most likely you only need to add the ```wins support = yes``` line after workgroup in the global section of the config file. This line is not necessary, especially on small networks and especially if using fixed-IP but can help on large Windows networks typical on university settings (i.e. if the rPis are connected to the university wifi network instead of a local wifi network). The workgroup name can be anything respecting the Windows group names guidelines (e.g. PITRACKER), but that name has to match on the different computers/rPis (WORKGROUP is the default group name on Windows).
   
-    - Finally quit Nano typing CTRL+X, type Y to save changes, do not change filename to overwrite previous config file. 
+    - Finally quit Nano typing CTRL+X, type Y to save changes, do not change filename to overwrite previous config file.
+    4. ```sudo /etc/init.d/smbd restart```
 
 5. Install required libraries and copy python scripts.
     1. Install libraries: ```pip install ???```
