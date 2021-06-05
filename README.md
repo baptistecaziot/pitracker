@@ -1,8 +1,8 @@
 # pitracker
 This repository contains scripts to use the pi-tracker.
 
-Installation [#Installation]
-Usgae [#Usage]
+[Installation] (#Installation)
+[Usage] (#Usage)
 
 ## Installation
 (1) Install NOOB: Install NOOB on a SD card, start the Pi.
