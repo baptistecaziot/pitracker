@@ -22,7 +22,7 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
     1. Install Samba: ```sudo apt-get install samba samba-common-bin```. What you select regarding DHCP doesn't matter as we will use fixed-IP.
     2. Create data folder ```mkdir ~/data```. This folder can be anywhere on the disk, here it is created directly in the user's home.
     3. Edit the Samba config file: ```sudo nano /etc/samba/smb.conf```. Change the following lines: 
-    - Required: at the end of the file add the following section:
+    - Required: at the end of the file in the "Share definition" section add the following:
     ```
     [PiShare]
     comment=Shared data folder
