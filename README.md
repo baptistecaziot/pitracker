@@ -19,12 +19,9 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
 3. Set up the network: connect the Pis to a wifi router, set up fixed IP.
 
 4. Set up shared folders: install and set up Samba.
-
-  a. Install Samba: ```sudo apt-get install samba samba-common-bin```. What you select regarding DHCP doesn't matter as we will use fixed-IP.
-  
-  b. Create data folder ```mkdir ~/data```. This folder can be anywhere on the disk, here it is created directly in the user's home.
-
-  c. Edit the Samba config file: ```sudo nano /etc/samba/smb.conf```. Change the following lines: 
+  1. Install Samba: ```sudo apt-get install samba samba-common-bin```. What you select regarding DHCP doesn't matter as we will use fixed-IP.
+  2. Create data folder ```mkdir ~/data```. This folder can be anywhere on the disk, here it is created directly in the user's home.
+  3. Edit the Samba config file: ```sudo nano /etc/samba/smb.conf```. Change the following lines: 
   - Required: at the end of the file add the following section:
   ```
   [PiShare]
@@ -50,7 +47,8 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
   - Finally quit Nano typing CTRL+X, type Y to save changes, do not change filename to overwrite previous config file. 
 
 5. Install required libraries and copy python scripts.
-  a. install libraries: ```pip install ???```
+  1. Install libraries: ```pip install ???```
+  2. Download scripts
 
 6. Set up python scripts to start automatically on boot.
 
