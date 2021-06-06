@@ -72,9 +72,10 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
     - In OSX open Finder and select "Go">"Connect to server". Here enter "smb://192.168.0.101/pi/data". If it asks for credentials enter "pi" and the network password you set on the rPi. You should also be able to connect as guest if you set the "public" parameter to yes.
     - In Linux: 
 
-5. Install required libraries and copy python scripts.
-    1. Install libraries: ```pip install ???```
-    2. Download scripts
+5. Install required libraries and copy python scripts
+    1. Download this repository on all rPi zeros: ```git clone https://github.com/baptistecaziot/pitracker.git```
+    2. Install libraries: ```pip install ???```
+    3. Download scripts
 
 6. Set up python scripts to start automatically on boot.
 
