@@ -13,12 +13,16 @@ import RPi.GPIO as gpio
 
 # Parameters
 synchPin = 21
+irPin = 13
 cameraResolution = (1296,972)#(1920,1080)
 cameraFramerate = 30
 videoDuration = 60
+
 fileName = time.strftime("/home/pi/Data/scene_%Y-%m-%d_%H-%M-%S")
 gpio.setmode(gpio.BCM)
 gpio.setup(synchPin,gpio.IN)
+gpio.setup(irPin,gpio.OUT)
+gpio.output(irPin,gpio.HIGH)
 
 
 class pitrackercamera(object):
