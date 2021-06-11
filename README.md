@@ -34,7 +34,7 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
         - Mac: go to "System Preferences">"Network". Select Wifi and click on "Advanced". Here in the "TCP/IP" tab select "Configure IPv4: Manually" and set the IP address address like described above for Windows.
         - Linux: the process is the same as for the Raspberry Pis. Edit the dhcpcd.conf file, set the wlan0 connection to the same fixed address described above then restart the DHCP service.
     
-    5. Before setting up a shared folder between computers, make sure the network works as expected by checking the IP address of each computer (```ifconfig``` on Linux and Mac, ```ipconfig``` on Windows). Then make sure each computer can see other computers using ```ping 192.168.0.???``` (change ??? with the IP address of the computer you want to test). You should see "Reply from 192.168.0.???: bytes=32 time=?ms TTL=64".
+    5. Before setting up a shared folder between computers, make sure the network works as expected by checking the IP address of each computer (```ipconfig``` on Windows and ```ifconfig``` on Linux and Mac, on Linux you might have install net-tools: ```sudo apt-get install net-tools```). Then make sure each computer can see other computers using ```ping 192.168.0.???``` (change ??? for the IP address of the computer you want to test). You should see "Reply from 192.168.0.???: bytes=32 time=?ms TTL=64".
 
 4. Set up shared folders:
     1. Install Samba: ```sudo apt-get install samba```. What you select regarding DHCP doesn't matter as we will use fixed-IP.
