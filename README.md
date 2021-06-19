@@ -79,4 +79,8 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
 
 6. Set up python scripts to start automatically on boot. To do this edit the file rc.local: ```sudo nano /tec/rc.local```. Add the following line before the ```exit 0``` tag: ```python /home/pi/Documents/pitracker/pitracker_scenecamera.py```. Of course this line should be added on the rPi connected to the scene camera and will work only it the git repository has been cloned into Documents. Change the path accordingly and change for ```pitracker_eyecamera.py``` on the rPi connected to the eye camera.
 
+7. Set up VNC "Virtual Network Computing":
+    1. Activate VNC on the rPi: go to Preferences > Interfarces > Enable VNC.
+    2. Downloads VNC Viewer for your OS: https://www.realvnc.com/en/connect/download/viewer/
+
 ## Usage
