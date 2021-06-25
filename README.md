@@ -83,4 +83,10 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
     1. Activate VNC on the rPi: go to Preferences > Interfarces > Enable VNC.
     2. Downloads VNC Viewer for your OS: https://www.realvnc.com/en/connect/download/viewer/
 
+8. Allow I2C communication with the accelerometer:
+    1. Install libraries: ```sudo apt install i2c-tools python3-smbus```.
+    2. Activate I2C communication: ```sudo raspi-config```>"5 Interfacing Options">Enable I2C, or as usual go to options to do the same thing.
+    3. Get the address of the I2C slave: in terminal type ```i2c detect r 1```
+
+
 ## Usage
