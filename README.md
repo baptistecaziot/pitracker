@@ -90,3 +90,11 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
 
 
 ## Usage
+
+At this point you should have set up each Raspberry Pi, cloned the git repository and installed all libraries. Now you need to install the PeyeTracker and test the system.
+
+1. Stack the Raspberry Pis: 
+2. Add the LiPo shield: 
+3. Add the accelerometer:
+4. Add the synchronization plug:
+5. 
