@@ -85,8 +85,8 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
 
 8. Allow I2C communication with the accelerometer:
     1. Install libraries: ```sudo apt install i2c-tools python3-smbus```.
-    2. Activate I2C communication: ```sudo raspi-config```>"5 Interfacing Options">Enable I2C, or as usual go to options to do the same thing.
-    3. Get the address of the I2C slave: in terminal type ```i2c detect r 1```
+    2. Activate I2C communication: ```sudo raspi-config```>"5 Interfacing Options">Enable I2C, or as usual go to options to do the same thing. Restart the rPi.
+    3. Get the address of the I2C slave: in terminal type ```i2cdetect -y 1```. The address is 7 bits in heaxadimal (thus has to be written 0xNN with NN the number returned by i2cdetect). The default address address should be 0x68.
 
 
 ## Usage
