@@ -120,4 +120,5 @@ If you get a syntax error, you are using python2 and not python3.
 
 At this point you should have set up each Raspberry Pi, cloned the git repository and installed all libraries. Now you need to install the PeyeTracker and test the system.
 
-5. 
+1. Connect to the rPis using VNC. On the server start the VNC Viewer. If you have created an account and logged-in on each rPi you should see them in your "team". If not enter the rPi IP address in the search bar (e.g. 192.168.0.101). When prompted enter the rPi login info ("pi" and the rPi password). You should now see the rPi desktop as if it were connected to a monitor.
+2. 
