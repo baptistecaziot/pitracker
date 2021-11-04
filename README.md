@@ -12,7 +12,7 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
   
 2. Activate the camera module.
   - Using the graphical interface: go to Preference>Raspberry Pi Configuration>Interfaces and enable the camera module, then reboot the Pi. https://projects.raspberrypi.org/en/projects/getting-started-with-picamera/1
-  - Using the terminal: type ```sudo raspi-config```, select "5 Interfacing options">"P1 Camera">Enable camera 
+  - Using the terminal: type ```sudo raspi-config```, select "3 Interface Options">"P1 Camera">Enable camera 
 
   You can test the camera by typing ```raspistill -o ~/Desktop/test.jpg``` in the terminal. A JPG image should be created on the desktop.
   
