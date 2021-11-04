@@ -59,13 +59,13 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
 
 4. Set up shared folders:
     1. Install Samba: ```sudo apt-get install samba```. What you select regarding DHCP doesn't matter as we will use fixed-IP.
-    2. Create data folder ```mkdir ~/data```. This folder can be anywhere on the disk, here it is created directly in the user's home. Change the rights to the data folder with ```chmod 777 ~/data```, to allow everybody to read and write in that folder.
+    2. Create data folder ```mkdir ~/Data```. This folder can be anywhere on the disk, here it is created directly in the user's home. Change the rights to the data folder with ```chmod 777 ~/Data```, to allow everybody to read and write in that folder.
     3. Edit the Samba config file: ```sudo nano /etc/samba/smb.conf```. Change the following lines: 
     - Required: at the end of the file in the "Share definition" section add the following:
     ```
     [PiShare]
     comment=Shared data folder
-    path=/home/pi/data
+    path=/home/pi/Data
     browseable=Yes
     writeable=Yes
     only guest=no
@@ -89,9 +89,9 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
     5. Finally restart Samba with ```sudo /etc/init.d/smbd restart```
     
     6. Now you should be able to see the shared folder on other computers:
-    - In Windows you might be able to see the rPi in Network tab of the File Explorer. In any case you can go to "This PC">"Add a network location">"Next">"Choose a custom network location". (If Windows asks anything about broadband connection just quit that window to go back to the "Add network location" interface.) Here enter the network location of the shared folder. In the described example it would be \\192.168.0.101\pi\data
-    - In OSX open Finder and select "Go">"Connect to server". Here enter "smb://192.168.0.101/pi/data" (change IP address accordingly). If it asks for credentials enter "pi" and the network password you set on the rPi. You should also be able to connect as guest if you set the "public" parameter to yes.
-    - In Linux: Go to "smb://192.168.0.101/pi/data" (change IP address accordingly), enter "pi" as user and the password you set for Samba.
+    - In Windows you might be able to see the rPi in Network tab of the File Explorer. In any case you can go to "This PC">"Add a network location">"Next">"Choose a custom network location". (If Windows asks anything about broadband connection just quit that window to go back to the "Add network location" interface.) Here enter the network location of the shared folder. In the described example it would be \\192.168.0.101\pi\Data
+    - In OSX open Finder and select "Go">"Connect to server". Here enter "smb://192.168.0.101/pi/Data" (change IP address accordingly). If it asks for credentials enter "pi" and the network password you set on the rPi. You should also be able to connect as guest if you set the "public" parameter to yes.
+    - In Linux: Go to "smb://192.168.0.101/pi/Data" (change IP address accordingly), enter "pi" as user and the password you set for Samba.
 
 5. Clone this repository and install required libraries:
     1. Download this repository on all rPi zeros (typically inside "~/Documents"): ```git clone https://github.com/baptistecaziot/pitracker.git```
