@@ -11,6 +11,7 @@ This repository contains scripts to use the pi-tracker.
 With the exception of the accelerometer, the Raspberry Pis (rPis) can be set up prior building the actual eye-tracker. And in facts it might be easier.
 1. Requirements:
   - 2 Raspberry Pi zeros (https://www.raspberrypi.com/products/raspberry-pi-zero-w/).
+  - 2 SD cards. I've had good experience with the SanDisk Extreme 64GB.
   - 2 rPi cameras. Cameras for the regular rPi and rPi zero are not compatible. For the scene-camera I prefer the spy camera with a 120deg angle and for the eye-camera the spy camera with a 15cm cable.
   - 1 BNO055 accelerometer (https://www.adafruit.com/product/2472).
   - 1 LiPo SHIM (https://www.adafruit.com/product/3196).
@@ -23,6 +24,7 @@ With the exception of the accelerometer, the Raspberry Pis (rPis) can be set up 
 5. Add the accelerometer:
 6. Add the synchronization plug:
 
+Wrning note: the rPis SD cards get corrupt over time. You'll probably 
 
 ## Installation
 1. Install NOOB: Install NOOB on a SD card, start the Pi.
