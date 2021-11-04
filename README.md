@@ -24,7 +24,7 @@ With the exception of the accelerometer, the Raspberry Pis (rPis) can be set up 
 5. Add the accelerometer:
 6. Add the synchronization plug:
 
-Wrning note: the rPis SD cards get corrupt over time. You'll probably 
+Wrning note: the rPis SD cards get corrupt over time. You'll probably need to change them priodically. To preserve them try to boot off the rPi from the "Log Out" menu and never by unplugging power. Similarly try to get a battery large enough that you can turn off the system at the end of the recording rather than the battery running out.
 
 ## Installation
 1. Install NOOB: Install NOOB on a SD card, start the Pi.
