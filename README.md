@@ -69,8 +69,8 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
     
     6. Now you should be able to see the shared folder on other computers:
     - In Windows you might be able to see the rPi in Network tab of the File Explorer. In any case you can go to "This PC">"Add a network location">"Next">"Choose a custom network location". (If Windows asks anything about broadband connection just quit that window to go back to the "Add network location" interface.) Here enter the network location of the shared folder. In the described example it would be \\192.168.0.101\pi\data
-    - In OSX open Finder and select "Go">"Connect to server". Here enter "smb://192.168.0.101/pi/data". If it asks for credentials enter "pi" and the network password you set on the rPi. You should also be able to connect as guest if you set the "public" parameter to yes.
-    - In Linux: 
+    - In OSX open Finder and select "Go">"Connect to server". Here enter "smb://192.168.0.101/pi/data" (change IP address accordingly). If it asks for credentials enter "pi" and the network password you set on the rPi. You should also be able to connect as guest if you set the "public" parameter to yes.
+    - In Linux: Go to "smb://192.168.0.101/pi/data" (change IP address accordingly), enter "pi" as user and the password you set for Samba.
 
 5. Install required libraries and copy python scripts
     1. Download this repository on all rPi zeros: ```git clone https://github.com/baptistecaziot/pitracker.git```
