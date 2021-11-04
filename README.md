@@ -1,9 +1,28 @@
 # pitracker
 This repository contains scripts to use the pi-tracker.
 
+[Hardware](#hardware)
+
 [Installation](#Installation)
 
 [Usage](#Usage)
+
+## Hardware
+With the exception of the accelerometer, the Raspberry Pis (rPis) can be set up prior building the actual eye-tracker. And in facts it might be easier.
+1. Requirements:
+  - 2 Raspberry Pi zeros (https://www.raspberrypi.com/products/raspberry-pi-zero-w/).
+  - 2 rPi cameras. Cameras for the regular rPi and rPi zero are not compatible. For the scene-camera I prefer the spy camera with a 120deg angle and for the eye-camera the spy camera with a 15cm cable.
+  - 1 BNO055 accelerometer (https://www.adafruit.com/product/2472).
+  - 1 LiPo SHIM (https://www.adafruit.com/product/3196).
+  - 1 LiPo battery. The size depends on your application, but 2000mAh allows over 1h of stable recording (e.g. https://www.adafruit.com/product/2011).
+  - 1 mini-HDMI to HDMI-A adapter (https://www.raspberrypi.com/products/mini-hdmi-c-male-to-standard-hdmi-a-female-adapter/)
+  - 1 micro-USB to USB-A adapter (https://www.raspberrypi.com/products/micro-usb-male-to-usb-a-female-cable/)
+  - 1 power supply, although a micro-usb cable connect to a computer is enough (https://www.raspberrypi.com/products/type-c-power-supply/).
+3. Stack the Raspberry Pis: 
+4. Add the LiPo shield: 
+5. Add the accelerometer:
+6. Add the synchronization plug:
+
 
 ## Installation
 1. Install NOOB: Install NOOB on a SD card, start the Pi.
@@ -72,20 +91,19 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
     - In OSX open Finder and select "Go">"Connect to server". Here enter "smb://192.168.0.101/pi/data" (change IP address accordingly). If it asks for credentials enter "pi" and the network password you set on the rPi. You should also be able to connect as guest if you set the "public" parameter to yes.
     - In Linux: Go to "smb://192.168.0.101/pi/data" (change IP address accordingly), enter "pi" as user and the password you set for Samba.
 
-5. Install required libraries and copy python scripts
-    1. Download this repository on all rPi zeros: ```git clone https://github.com/baptistecaziot/pitracker.git```
+5. Clone this repository and install required libraries:
+    1. Download this repository on all rPi zeros (typically inside "~/Documents"): ```git clone https://github.com/baptistecaziot/pitracker.git```
     2. Install libraries: ```pip install ???```
-    3. Download scripts
 
-6. Set up python scripts to start automatically on boot. To do this edit the file rc.local: ```sudo nano /tec/rc.local```. Add the following line before the ```exit 0``` tag: ```python /home/pi/Documents/pitracker/pitracker_scenecamera.py```. Of course this line should be added on the rPi connected to the scene camera and will work only it the git repository has been cloned into Documents. Change the path accordingly and change for ```pitracker_eyecamera.py``` on the rPi connected to the eye camera.
+6. Set up python scripts to start automatically on boot. To do this edit the file rc.local: ```sudo nano /etc/rc.local```. Add the following line before the ```exit 0``` tag: ```python /home/pi/Documents/pitracker/pitracker_scenecamera.py```. Of course this line should be added on the rPi connected to the scene camera and will work only it the git repository has been cloned into Documents. Change the path accordingly and change for ```pitracker_eyecamera.py``` on the rPi connected to the eye camera.
 
-7. Set up VNC "Virtual Network Computing":
-    1. Activate VNC on the rPi: go to Preferences > Interfarces > Enable VNC.
-    2. Downloads VNC Viewer for your OS: https://www.realvnc.com/en/connect/download/viewer/
+7. Set up VNC "Virtual Network Computing". Raspberry Pis come with a VNC server preinstalled. You need to activate it on each rPi then install the VNC Viewer on your server to remotely connect to the rPis:
+    1. Activate VNC on the rPi: go to Preferences > Interfaces > Enable VNC (or use raspi-config).
+    2. On your server, download VNC Viewer for your OS: https://www.realvnc.com/en/connect/download/viewer/
 
 8. Allow I2C communication with the accelerometer:
     1. Install libraries: ```sudo apt install i2c-tools python3-smbus```.
-    2. Activate I2C communication: ```sudo raspi-config```>"5 Interfacing Options">Enable I2C, or as usual go to options to do the same thing. Restart the rPi.
+    2. Activate I2C communication: ```sudo raspi-config```>"3 Interface Options">Enable I2C, or as usual go to options to do the same thing. Restart the rPi.
     3. Get the address of the I2C slave: in terminal type ```i2cdetect -y 1```. The address is 7 bits in heaxadimal (thus has to be written 0xNN with NN the number returned by i2cdetect). The default address address should be 0x68.
     4. Change the i2c baudrate to 50kHz:```sudo cat /sys/module/i2c-bcm2708/parameters/baudrate``` and ```sudo modprobe i2c-bcm2708 baudrate=50000```
     5. Install the Adafruit BNO055 python library:
@@ -101,8 +119,4 @@ sudo python setup.py install
 
 At this point you should have set up each Raspberry Pi, cloned the git repository and installed all libraries. Now you need to install the PeyeTracker and test the system.
 
-1. Stack the Raspberry Pis: 
-2. Add the LiPo shield: 
-3. Add the accelerometer:
-4. Add the synchronization plug:
 5. 
