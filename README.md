@@ -111,8 +111,9 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
 cd ~
 git clone https://github.com/adafruit/Adafruit_Python_BNO055.git
 cd Adafruit_Python_BNO055
-sudo python setup.py install
+sudo python3 setup.py install
 ```
+If you get a syntax error, you are using python2 and not python3.
 
 
 ## Usage
