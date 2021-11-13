@@ -9,6 +9,7 @@
 
 import os, io, time, datetime, picamera
 import RPi.GPIO as gpio
+import pynput.keyboard as keyboard
 
 
 # Parameters
@@ -17,8 +18,10 @@ irPin = 13
 cameraResolution = (320,320)
 cameraFramerate = 90
 videoDuration = 60
+videoQuality = 10
+isRecording = 0
+isPreviewing = 0
 
-fileName = time.strftime("/home/pi/Data/eye_%Y-%m-%d_%H-%M-%S")
 gpio.setmode(gpio.BCM)
 gpio.setup(synchPin,gpio.IN)
 gpio.setup(irPin,gpio.OUT)
@@ -29,6 +32,7 @@ class pitrackercamera(object):
     def __init__(self, camera, synchPin, videoName, timestampsName):
         self.camera = camera
         self.synchPin = synchPin
+        self.quality = 10
         self.video_output = io.open(videoName, 'wb') 
         self.pts_output = io.open(timestampsName, 'w')
         self.start_time = None
@@ -49,14 +53,59 @@ class pitrackercamera(object):
         self.video_output.close()
         self.pts_output.close()
 
+def start_recording():
+    global isRecording, camera
+    if (isRecording==0):
+        if (isPreviewing==1):
+            stop_previewing()
+        
+        fileName = time.strftime("/home/pi/Data/eye_%Y-%m-%d_%H-%M-%S")
+        camera.start_recording(pitrackercamera(camera, synchPin, fileName+'.h264', fileName+'.txt'), format='h264', quality=videoQuality)
+        isRecording = 1
 
-with picamera.PiCamera() as camera:
-    camera.resolution = cameraResolution
-    camera.framerate = cameraFramerate
-    camera.start_recording(pitrackercamera(camera, synchPin, fileName+'.h264', fileName+'.txt'), format='h264')
-    #camera.start_preview()
-    camera.wait_recording(videoDuration)
-    camera.stop_recording()
+def stop_recording():
+    global isRecording, camera
+    if (isRecording==1):
+        camera.stop_recording()
+        isRecording = 0
+
+def start_previewing():
+    global isPreviewing, camera
+    if (isPreviewing==0):
+        camera.start_preview()
+        isPreviewing = 1
+
+def stop_previewing():
+    global isPreviewing, camera
+    if (isPreviewing==1):
+        camera.stop_preview()
+        isPreviewing = 0
+
+def on_press(key):
+    try:
+        if (key==keyboard.Key.space):
+            if (isPreviewing==0):
+                print('Start preview')
+                start_previewing()
+            else:
+                print('Stop preview')
+                stop_previewing()
+        elif (key==keyboard.Key.enter):
+            if (isRecording==0):
+                print('Start recording')
+                start_recording()
+            else:
+                print('Stop recording')
+                stop_recording()
+e    except AssertionError as error:
+        print(error)
+
+listener = keyboard.Listener(on_press=on_press)
+listener.start()
+
+camera = picamera.PiCamera()
+camera.resolution = cameraResolution
+camera.framerate = cameraFramerate
 
 
 """
