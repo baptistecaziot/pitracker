@@ -95,7 +95,7 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
 
 5. Clone this repository and install required libraries:
     1. Download this repository on all rPi zeros (typically inside "~/Documents"): ```git clone https://github.com/baptistecaziot/pitracker.git```
-    2. Install libraries: ```pip install ???```
+    2. Install libraries: ```pip3 install keyboard```
 
 6. Set up python scripts to start automatically on boot. To do this edit the file rc.local: ```sudo nano /etc/rc.local```. Add the following line before the ```exit 0``` tag: ```python /home/pi/Documents/pitracker/pitracker_scenecamera.py```. Of course this line should be added on the rPi connected to the scene camera and will work only it the git repository has been cloned into Documents. Change the path accordingly and change for ```pitracker_eyecamera.py``` on the rPi connected to the eye camera.
 
