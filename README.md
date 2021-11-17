@@ -101,7 +101,8 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
 
 7. Set up VNC "Virtual Network Computing". Raspberry Pis come with a VNC server preinstalled. You need to activate it on each rPi then install the VNC Viewer on your server to remotely connect to the rPis:
     1. Activate VNC on the rPi: go to Preferences > Interfaces > Enable VNC (or use raspi-config).
-    2. On your server, download VNC Viewer for your OS: https://www.realvnc.com/en/connect/download/viewer/
+    2. Activate Direct Capture Mode: in VNC server, go to Options>Troubleshooting and activate Direct Capture Mode.
+    3. On your server, download VNC Viewer for your OS: https://www.realvnc.com/en/connect/download/viewer/
 
 8. Allow I2C communication with the accelerometer:
     1. Install libraries: ```sudo apt install i2c-tools python3-smbus```.
