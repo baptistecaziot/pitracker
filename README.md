@@ -95,13 +95,14 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
 
 5. Clone this repository and install required libraries:
     1. Download this repository on all rPi zeros (typically inside "~/Documents"): ```git clone https://github.com/baptistecaziot/pitracker.git```
-    2. Install libraries: ```pip3 install picamera keyboard```
+    2. Install libraries: ```pip3 install picamera pynput netifaces```
 
 6. Set up python scripts to start automatically on boot. To do this edit the file rc.local: ```sudo nano /etc/rc.local```. Add the following line before the ```exit 0``` tag: ```python /home/pi/Documents/pitracker/pitracker_scenecamera.py```. Of course this line should be added on the rPi connected to the scene camera and will work only it the git repository has been cloned into Documents. Change the path accordingly and change for ```pitracker_eyecamera.py``` on the rPi connected to the eye camera.
 
 7. Set up VNC "Virtual Network Computing". Raspberry Pis come with a VNC server preinstalled. You need to activate it on each rPi then install the VNC Viewer on your server to remotely connect to the rPis:
     1. Activate VNC on the rPi: go to Preferences > Interfaces > Enable VNC (or use raspi-config).
-    2. On your server, download VNC Viewer for your OS: https://www.realvnc.com/en/connect/download/viewer/
+    2. Activate Direct Capture Mode: in VNC server, go to Options>Troubleshooting and activate Direct Capture Mode.
+    3. On your server, download VNC Viewer for your OS: https://www.realvnc.com/en/connect/download/viewer/
 
 8. Allow I2C communication with the accelerometer:
     1. Install libraries: ```sudo apt install i2c-tools python3-smbus```.
