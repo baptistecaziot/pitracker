@@ -36,7 +36,7 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
   - Using the graphical interface: go to Preference>Raspberry Pi Configuration>Interfaces and enable the camera module, then reboot the Pi. https://projects.raspberrypi.org/en/projects/getting-started-with-picamera/1
   - Using the terminal: type ```sudo raspi-config```, select "3 Interface Options">"P1 Camera">Enable camera 
 
-  You can test the camera by typing ```raspistill -o ~/Desktop/test.jpg``` in the terminal. A JPG image should be created on the desktop.
+  You can test the camera by typing ```raspistill -o ~/Desktop/test.jpg``` in the terminal. A JPG image should be created on the desktop. Or ```raspistill -d```, which should display the camera for few seconds.
   
 3. Set up the wifi network. Here we use a wifi router to create a local network where data files can be transfered at the end of data collection. This router can also connect the rPis to the internet for updating scripts, libraries etc. However we strongly recommend not keeping the rPis connected to the internet permanently. Unless you are updating the rPis, unplug the router from the netwrok. Raspberry Pis are notoriously unsecure and create weak points in a network security.
     1. Figure out the IP adress of the router. Typically it is 192.168.0.1 or 192.168.1.1.
