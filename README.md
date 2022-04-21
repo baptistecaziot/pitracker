@@ -24,9 +24,10 @@ With the exception of the accelerometer, the Raspberry Pis (rPis) can be set up 
 5. Add the accelerometer:
 6. Add the synchronization plug:
 
-Wrning note: the rPis SD cards get corrupt over time. You'll probably need to change them priodically. To preserve them try to boot off the rPi from the "Log Out" menu and never by unplugging power. Similarly try to get a battery large enough that you can turn off the system at the end of the recording rather than the battery running out.
+Warning note: the rPis SD cards get corrupt over time. You'll probably need to change them priodically. To preserve them try to boot off the rPi from the "Log Out" menu and never by unplugging power. Similarly try to get a battery large enough that you can turn off the system at the end of the recording rather than the battery running out.
 
 ## Installation
+Note: necessary steps are indicated by numbers. All necessary steps needs to be taken, not necessarily in order. When different solutions are available, they are denoted by dots. Only one of the possible solution denoted by a dot needs to be taken.
 1. Install NOOB: Install NOOB on a SD card, start the Pi.
 
 https://www.raspberrypi.org/documentation/installation/noobs.md
@@ -97,7 +98,7 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
     1. Download this repository on all rPi zeros (typically inside "~/Documents"): ```git clone https://github.com/baptistecaziot/pitracker.git```
     2. Install libraries: ```pip3 install picamera pynput netifaces```
 
-6. Set up python scripts to start automatically on boot. To do this edit the file rc.local: ```sudo nano /etc/rc.local```. Add the following line before the ```exit 0``` tag: ```python /home/pi/Documents/pitracker/pitracker_scenecamera.py```. Of course this line should be added on the rPi connected to the scene camera and will work only it the git repository has been cloned into Documents. Change the path accordingly and change for ```pitracker_eyecamera.py``` on the rPi connected to the eye camera.
+6. Set up python scripts to start automatically on boot. To do this edit the file rc.local: ```sudo nano /etc/rc.local```. Add the following line before the ```exit 0``` tag: ```python /home/pi/Documents/pitracker/pitracker_scenecamera.py```. Of course this line should be added on the rPi connected to the scene camera and will work only it the git repository has been cloned into Documents. Change the path accordingly and change for ```pitracker_eyecamera.py``` on the rPi connected to the eye camera. Consider using sudo nice -n -20 ```python script.py``` to run with highest priority.
 
 7. Set up VNC "Virtual Network Computing". Raspberry Pis come with a VNC server preinstalled. You need to activate it on each rPi then install the VNC Viewer on your server to remotely connect to the rPis:
     1. Activate VNC on the rPi: go to Preferences > Interfaces > Enable VNC (or use raspi-config).
