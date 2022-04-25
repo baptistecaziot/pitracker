@@ -31,14 +31,16 @@ Note: necessary steps are indicated by numbers. All necessary steps needs to be 
 1. Install NOOB: Install NOOB on a SD card, start the Pi.
 
 https://www.raspberrypi.org/documentation/installation/noobs.md
-  
+
+**Be careful to change the rPis default passwords**, automated scripts scan the internet and automatically log in rPis with unchanged default passwords.
+
 2. Activate the camera module.
   - Using the graphical interface: go to Preference>Raspberry Pi Configuration>Interfaces and enable the camera module, then reboot the Pi. https://projects.raspberrypi.org/en/projects/getting-started-with-picamera/1
   - Using the terminal: type ```sudo raspi-config```, select "3 Interface Options">"P1 Camera">Enable camera 
 
   You can test the camera by typing ```raspistill -o ~/Desktop/test.jpg``` in the terminal. A JPG image should be created on the desktop. Or ```raspistill -d```, which should display the camera for few seconds.
   
-3. Set up the wifi network. Here we use a wifi router to create a local network where data files can be transfered at the end of data collection. This router can also connect the rPis to the internet for updating scripts, libraries etc. However we strongly recommend not keeping the rPis connected to the internet permanently. Unless you are updating the rPis, unplug the router from the netwrok. Raspberry Pis are notoriously unsecure and create weak points in a network security.
+3. Set up the wifi network. Here we use a wifi router to create a local network where data files can be transfered at the end of data collection. This router can also connect the rPis to the internet for updating scripts, libraries etc. However we strongly recommend not keeping the rPis connected to the internet permanently. Unless you are updating the rPis, unplug the router from the netwrok. Raspberry Pis will create weak points in a network security, especially if the default password have not been changed.
     1. Figure out the IP adress of the router. Typically it is 192.168.0.1 or 192.168.1.1.
     2. On the rPis you can set static IP by editing the dhcp configuration file: ```sudo nano /etc/dhcpcd.conf```. Add the following lines:
     ```
