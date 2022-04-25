@@ -105,7 +105,24 @@ https://www.raspberrypi.org/documentation/installation/noobs.md
     2. Activate Direct Capture Mode: in VNC server, go to Options>Troubleshooting and activate Direct Capture Mode.
     3. On your server, download VNC Viewer for your OS: https://www.realvnc.com/en/connect/download/viewer/
 
-8. Allow I2C communication with the accelerometer:
+8. At this point you should have set up the rPis and be ready for recording. You can test the system by running the pthon script.
+
+## Usage
+The PiTrackers allow different ways to trigger recordings.
+1. Trigger recordings:
+  - From the server (recommended): for convenience we provide a python script to run on a separate computer. This script will connect to the rPis and trigger recordings remotely. First modify the rPis and server IP addresses at the top of the script. 
+  - Using VNC: connect to the rPis using VNCviewer. If you have created an account and logged-in on each rPi you should see them in your "team". If not enter the rPi IP address in the search bar (e.g. 192.168.0.101). When prompted enter the rPi login info ("pi" and the rPi password). You should now see the rPi desktop as if it were connected to a monitor. You can manually start the python script on each rPi. The console should display "Running...". You might see an error message about a channel already in use which is unimportant. Now you can preview the camera by pressing "space". If you are satisfied with the image you can trigger a recording by pressing "enter". The rPi will automatically create a video file in the folder "~/Data/" named after the date and time of the recording. After pressing "enter" a second time the recording will stop. Note that if you performed step 6 of the installation section the script will already be running in background so it is not recommended to start the script again.
+  - Using the recording pin. By default this option is turned off to avoid starting or stopping a recording accidently. However you can enable this option by setting ```allowRecordingPin = 1``` in the rPi scripts. In this case a recording will be triggered by sending a pulse to the pin 26 (the second pin at the bottom left).
+2. Synchronize recordings: during recording, the rPi stores frame times in a .txt file alongside the video file. Pin 21 (the bottom right pin) is also monitored at each frame and its value stored in the same text file. Because the 2 rPis are soldered together the values of pin 21 can be used to synchronize the recording offline, as well as with separate recordings such as behavioral or neural data.
+3. Recover video files:
+  - Using the server script: When the server script triggers a recoding, it receives and stores the file name through the socket connection. You can then use the script to recover these files by pressing "f". File transfer will be very slow, do not interupt the script before the end. In any case the video files will remained stored on the rPis, so you can recover them even if something happens during file transfer. This also means that you must delete them manually to save space.
+  - Using a file explorer: connect to the samba shared folder as in step 4-6 of the installation section. You can manually copy/paste files to a different computer. Here again the file will remain on the rPi SD card until you manually delete them.
+4. Analyze video file. 
+
+
+## Accelerometer
+
+Allow I2C communication with the accelerometer:
     1. Install libraries: ```sudo apt install i2c-tools python3-smbus```.
     2. Activate I2C communication: ```sudo raspi-config```>"3 Interface Options">Enable I2C, or as usual go to options to do the same thing. Restart the rPi.
     3. Get the address of the I2C slave: in terminal type ```i2cdetect -y 1```. The address is 7 bits in heaxadimal (thus has to be written 0xNN with NN the number returned by i2cdetect). The default address address should be 0x68.
@@ -118,11 +135,3 @@ cd Adafruit_Python_BNO055
 sudo python3 setup.py install
 ```
 If you get a syntax error, you are using python2 and not python3.
-
-
-## Usage
-
-At this point you should have set up each Raspberry Pi, cloned the git repository and installed all libraries. Now you need to install the PeyeTracker and test the system.
-
-1. Connect to the rPis using VNC. On the server start the VNC Viewer. If you have created an account and logged-in on each rPi you should see them in your "team". If not enter the rPi IP address in the search bar (e.g. 192.168.0.101). When prompted enter the rPi login info ("pi" and the rPi password). You should now see the rPi desktop as if it were connected to a monitor.
-2. 
