@@ -15,9 +15,12 @@ import pynput.keyboard as keyboard
 # Parameters
 synchPin = 21
 irPin = 13
+ledPin = 12
+recordPin = 26
+allowRecordingPin = 0
 cameraResolution = (320,320)
 cameraFramerate = 90
-videoFormat = 'mjpeg' # h264, mjpeg, rgb, rgba or yuv 
+videoFormat = 'mjpeg' # h264, mjpeg, rgb, rgba or yuv
 videoQuality = 10
 isRecording = 0
 isPreviewing = 0
@@ -33,8 +36,17 @@ server_port = 1959
 
 gpio.setmode(gpio.BCM)
 gpio.setup(synchPin,gpio.IN)
+gpio.setup(recordPin,gpio.IN)
 gpio.setup(irPin,gpio.OUT)
-gpio.output(irPin,gpio.HIGH)
+gpio.output(irPin,gpio.LOW)
+gpio.setup(ledPin,gpio.OUT)
+gpio.output(ledPin,gpio.LOW)
+
+
+def record_callback():
+    toggle_recording()
+if allowRecordingPin:
+    gpio.add_event_detect(recordPin, gpio.RISING, callback=record_callback, bouncetime=1000)
 
 
 class pitrackercamera(object):
@@ -64,20 +76,30 @@ class pitrackercamera(object):
 
 
 def start_recording():
-    fileName = time.strftime("/home/pi/Data/eye_%Y-%m-%d_%H-%M-%S")
+    filePath = "/home/pi/Data/"
+    fileName = time.strftime("eye_%Y-%m-%d_%H-%M-%S")
     if ((videoFormat=='mjpeg') or (videoFormat=='h264')):
-        camera.start_recording(pitrackercamera(camera, synchPin, fileName+'.'+videoFormat, fileName+'.txt'), format=videoFormat, quality=videoQuality)
+        camera.start_recording(pitrackercamera(camera, synchPin, filePath+fileName+'.'+videoFormat, filePath+fileName+'.txt'), format=videoFormat, quality=videoQuality)
     else:
-        camera.start_recording(pitrackercamera(camera, synchPin, fileName+'.'+videoFormat, fileName+'.txt'), format=videoFormat)
-        
+        camera.start_recording(pitrackercamera(camera, synchPin, filePath+fileName+'.'+videoFormat, filePath+fileName+'.txt'), format=videoFormat)
+    gpio.output(irPin,gpio.HIGH)
+    gpio.output(ledPin,gpio.HIGH)
+    return fileName
+
 def stop_recording():
     camera.stop_recording()
-
+    gpio.output(irPin,gpio.LOW)
+    gpio.output(ledPin,gpio.LOW)
+    
 def start_previewing():
     camera.start_preview()
+    gpio.output(irPin,gpio.HIGH)
+    gpio.output(ledPin,gpio.HIGH)
 
 def stop_previewing():
     camera.stop_preview()
+    gpio.output(irPin,gpio.LOW)
+    gpio.output(ledPin,gpio.LOW)
 
 def shutdown():
     global isRecording
@@ -105,8 +127,8 @@ def toggle_recording():
         isPreviewing = 0
         
     if (isRecording==0):
-        msg = 'Start recording'
-        start_recording()
+        fileName = start_recording()
+        msg = 'Start recording'+': '+fileName
         isRecording = 1
     else:
         msg = 'Stop recording'
@@ -135,22 +157,20 @@ camera.resolution = cameraResolution
 camera.framerate = cameraFramerate
 
 sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-# sock.setblocking(1)
-# sock.setblocking(0)
 sock.bind((pi_address,pi_port))
 
 print('Running...')
 
-# while True:
-#     try:
-#         data, addr = sock.recvfrom(1024)
-#         if (data==b"p"):
-#             toggle_previewing()
-#         elif (data==b"r"):
-#             toggle_recording()
-#         
-#     except AssertionError as error:
-#         print(error)
+while True:
+    try:
+        data, addr = sock.recvfrom(1024)
+        if (data==b"p"):
+            toggle_previewing()
+        elif (data==b"r"):
+            toggle_recording()
+            
+    except AssertionError as error:
+         print(error)
 
 
 
@@ -159,7 +179,6 @@ print('Running...')
 #camera.hflip = True
 #camera.vflip = True
 #camera.resolution = (2592,1944)
-
 
 camera.sharpness = 0
 camera.contrast = 0
@@ -175,10 +194,6 @@ camera.image_effect = 'none'
 camera.color_effects = None
 camera.rotation = 0
 camera.crop = (0.0,0.0,1.0,1.0)
-
-
-# Make a picture
-camera.capture(str(datetime.datetime.now())+'.jpg')
 """
 
 
