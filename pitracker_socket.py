@@ -6,16 +6,16 @@ Spyder Editor
 This is a temporary script file.
 """
 
-import socket
+import socket, time
 from pynput import keyboard
-
+   
 
 
 # pi_address1 = "137.248.137.8" #pcneuro06 - scene
 # pi_address2 = "137.248.137.9" #pcneuro07 - eye
 # pi_address1 = "137.248.137.6" #pcneuro04 - scene
 # pi_address2 = "137.248.137.7" #pcneuro05 - eye
-pi_address1 = "192.168.0.146" #pcneuro04 - scene
+pi_address1 = "137.248.137.14" #pcneuro04 - scene
 pi_address2 = "137.248.137.7" #pcneuro05 - eye
 pi_port = 1959
 
