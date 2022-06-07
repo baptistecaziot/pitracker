@@ -7,7 +7,7 @@
 #
 ####################################
 
-import os, io, time, datetime, picamera, socket, netifaces, struct
+import os, io, time, datetime, picamera, socket, struct
 import RPi.GPIO as gpio
 import pynput.keyboard as keyboard
 
@@ -22,17 +22,12 @@ cameraResolution = (1296,972)
 cameraFramerate = 30
 videoFormat = 'mjpeg' # h264, mjpeg, rgb, rgba or yuv
 videoQuality = 10
+pi_port = 1959
+
 isRecording = 0
 isPreviewing = 0
 isStreaming = 0
-
-pi_interface = "wlan0"
-pi_address = netifaces.ifaddresses(pi_interface)[netifaces.AF_INET][0]["addr"]
-pi_port = 1959
-pi_streamingPort = 1981
-server_address = "137.248.137.15"
-server_port = 1959
-
+isConnected = 0
 
 gpio.setmode(gpio.BCM)
 gpio.setup(synchPin,gpio.IN)
@@ -102,13 +97,15 @@ def stop_previewing():
     gpio.output(ledPin,gpio.LOW)
 
 def shutdown():
-    global isRecording
+    global isRecording, isConnected
     if (isRecording==1):
         stop_recording()
+    if isConnected:
+        clientsocket.send("Sutting down".encode());
     os.system("sudo shutdown -h now")
 
 def toggle_previewing():
-    global isPreviewing
+    global isPreviewing, isConnected
     if (isPreviewing==0):
         msg = 'Start preview'
         start_previewing()
@@ -118,10 +115,11 @@ def toggle_previewing():
         stop_previewing()
         isPreviewing = 0
     print(msg)
-    sock.sendto(msg.encode(),(server_address,server_port))
+    if isConnected:
+        clientsocket.send(msg.encode())
     
 def toggle_recording():
-    global isPreviewing, isRecording
+    global isPreviewing, isRecording, isConnected
     if (isPreviewing==1):
         stop_previewing()
         isPreviewing = 0
@@ -135,7 +133,8 @@ def toggle_recording():
         stop_recording()
         isRecording = 0
     print(msg)
-    sock.sendto(msg.encode(), (server_address,server_port));
+    if isConnected:
+        clientsocket.send(msg.encode());
 
 def on_press(key):
     try:
@@ -156,19 +155,38 @@ camera = picamera.PiCamera()
 camera.resolution = cameraResolution
 camera.framerate = cameraFramerate
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-sock.bind((pi_address,pi_port))
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock.setsockopt(socket.SOL_SOCKET,socket.SO_REUSEADDR, 1)
+sock.bind(('',pi_port))
+sock.setblocking(False)
+sock.listen(1)
 
 print('Running...')
 
 while True:
     try:
-        data, addr = sock.recvfrom(1024)
-        if (data==b"p"):
-            toggle_previewing()
-        elif (data==b"r"):
-            toggle_recording()
-            
+        (clientsocket,address) = sock.accept()
+        print('Received connection from %s' % address[0])
+        isConnected = 1
+        
+        while True:
+            data = clientsocket.recv(1024)
+            if not data:
+                break
+            elif (data==b"p"):
+                toggle_previewing()
+            elif (data==b"r"):
+                toggle_recording()
+            elif (data==b"e"):
+                shutdown()
+    
+        isConnected = 0
+    
+    except BlockingIOError:
+        pass
+    except ConnectionResetError:
+        print("Connection reset")
+        isConnected = 0
     except AssertionError as error:
          print(error)
 
