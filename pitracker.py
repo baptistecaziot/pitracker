@@ -131,7 +131,7 @@ class Pitracker(object):
     
     
     def start_recording(self):
-        self.fileName = time.strftime("eye_%Y-%m-%d_%H-%M-%S")
+        self.fileName = time.strftime("{}_%Y-%m-%d_%H-%M-%S".format(self.profile))
         self.videoName = self.filePath + self.fileName + '.' + self.videoFormat
         self.txtName = self.filePath + self.fileName + '.txt'
         

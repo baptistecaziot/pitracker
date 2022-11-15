@@ -33,15 +33,15 @@ server_ip = '0.0.0.0'
 
 
 # human
-# pi_address1 = "137.248.137.8" #pcneuro06 - scene
-# pi_address2 = "137.248.137.9" #pcneuro07 - eye
+pi_address1 = "137.248.137.8" #pcneuro06 - scene
+pi_address2 = "137.248.137.9" #pcneuro07 - eye
 
 # monkey
 # pi_address1 = "137.248.137.6" #pcneuro04 - scene
 # pi_address2 = "137.248.137.7" #pcneuro05 - eye
 
-pi_address1 = "137.248.137.14"  # pcneuro06 - scene
-pi_address2 = "137.248.137.9"  # pcneuro07 - eye
+# pi_address1 = "137.248.137.14"  # pcneuro06 - scene
+# pi_address2 = "137.248.137.9"  # pcneuro07 - eye
 
 pi_port = 1959
 
