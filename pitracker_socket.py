@@ -32,16 +32,22 @@ server_ip = '0.0.0.0'
 # conn.close()
 
 
-# human
-pi_address1 = "137.248.137.8" #pcneuro06 - scene
-pi_address2 = "137.248.137.9" #pcneuro07 - eye
+# # # human
+# pi_address1 = "137.248.137.8" #pcneuro06 - scene
+# pi_address2 = "137.248.137.9" #pcneuro07 - eye
 
-# monkey
+# monkey 1
 # pi_address1 = "137.248.137.6" #pcneuro04 - scene
 # pi_address2 = "137.248.137.7" #pcneuro05 - eye
 
-# pi_address1 = "137.248.137.14"  # pcneuro06 - scene
-# pi_address2 = "137.248.137.9"  # pcneuro07 - eye
+# monkey 2
+# pi_address1 = "137.248.137.10" #pcneuro08 - scene
+# pi_address12 = "137.248.137.11" #pcneuro09 - eye
+
+# Elmo
+pi_address1 = "137.248.137.1"   #pcneuro08 - scene
+pi_address2 = "137.248.137.12"  #pcneuro09 - eye
+
 
 pi_port = 1959
 
